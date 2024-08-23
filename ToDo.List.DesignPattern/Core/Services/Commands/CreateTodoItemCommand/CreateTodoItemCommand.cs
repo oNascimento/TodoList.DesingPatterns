@@ -1,7 +1,9 @@
-namespace ToDo.List.DesignPattern.Core.Services.Commands.CreateTodoItemCommand
+using MediatR;
+using ToDo.List.DesignPattern.Core.Models.DTOs;
+
+namespace ToDo.List.DesignPattern.Core.Services.Commands.CreateTodoItemCommand;
+
+public class CreateTodoItemCommand : IRequest<long>
 {
-    public class CreateTodoItemCommand
-    {
-        
-    }
+    public required TodoItemDto TodoItem { get; set; }
 }
