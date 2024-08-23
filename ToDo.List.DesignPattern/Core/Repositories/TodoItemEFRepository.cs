@@ -5,7 +5,7 @@ using ToDo.List.DesignPattern.Infrastructure.Interfaces;
 
 namespace ToDo.List.DesignPattern.Core.Repositories;
 
-public class TodoItemEFRepository(ILogger logger, TodoContext context) : IEFRepository<TodoItem>
+public class TodoItemEFRepository(ILogger<TodoItemEFRepository> logger, TodoContext context) : IEFRepository<TodoItem>
 {
     private async Task SaveChangesAsync(Action action, string operationName)
     {

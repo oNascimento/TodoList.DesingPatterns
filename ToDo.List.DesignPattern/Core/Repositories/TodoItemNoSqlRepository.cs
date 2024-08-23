@@ -6,7 +6,7 @@ using ToDo.List.DesignPattern.Infrastructure.Interfaces;
 
 namespace ToDo.List.DesignPattern.Core.Repositories;
 
-public class TodoItemNoSqlRepository(ILogger logger, TodoMongoDbContext context) : INoSqlRepository<TodoItem>
+public class TodoItemNoSqlRepository(ILogger<TodoItemNoSqlRepository> logger, TodoMongoDbContext context) : INoSqlRepository<TodoItem>
 {
     private async Task SaveChangesAsync(Action action, string operationName)
     {
