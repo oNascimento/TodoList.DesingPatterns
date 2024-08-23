@@ -16,7 +16,7 @@ public class TodoItemEFRepository(ILogger<TodoItemEFRepository> logger, TodoCont
         }
         catch (Exception e)
         {
-            var message = $"{nameof(TodoItemEFRepository)}-{operationName}";
+            var message = $"{nameof(TodoItemEFRepository)}-{operationName}-error";
             logger.LogWarning(message, e);
             throw;
         }
@@ -50,7 +50,10 @@ public class TodoItemEFRepository(ILogger<TodoItemEFRepository> logger, TodoCont
 
     public async Task Update(TodoItem item)
     {
-        context.Entry(item).State = EntityState.Modified;
-        await SaveChangesAsync(() => context.TodoItems.Update(item), nameof(Update));
+        await SaveChangesAsync(() => 
+        {
+            context.Entry(item).State = EntityState.Modified;
+            context.TodoItems.Update(item);
+        }, nameof(Update));
     }
 }

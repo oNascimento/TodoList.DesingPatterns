@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDo.List.DesignPattern", "ToDo.List.DesignPattern\ToDo.List.DesignPattern.csproj", "{0F551256-33F1-4EEF-9FF5-6932B83DD598}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDo.List.DesignPattern.Test", "ToDo.List.DesignPattern.Test\ToDo.List.DesignPattern.Test.csproj", "{C350128D-6018-4B92-8733-89CA7CA20B99}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{0F551256-33F1-4EEF-9FF5-6932B83DD598}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F551256-33F1-4EEF-9FF5-6932B83DD598}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F551256-33F1-4EEF-9FF5-6932B83DD598}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C350128D-6018-4B92-8733-89CA7CA20B99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C350128D-6018-4B92-8733-89CA7CA20B99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C350128D-6018-4B92-8733-89CA7CA20B99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C350128D-6018-4B92-8733-89CA7CA20B99}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
