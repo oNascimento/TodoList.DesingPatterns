@@ -1,5 +1,6 @@
 using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ToDo.List.DesignPattern.Core.Services.Commands.CreateTodoItemCommand;
 using ToDo.List.DesignPattern.Core.Services.Commands.DeleteTodoItemCommand;
@@ -10,6 +11,7 @@ using ToDo.List.DesignPattern.Core.Services.Queries.GetTodoItemQuery;
 namespace ToDo.List.DesignPattern.Controllers;
 
 [ApiController]
+[Authorize]
 [Route("api/[controller]")]
 public class TodoItemController(IMediator _mediator) : ControllerBase
 {

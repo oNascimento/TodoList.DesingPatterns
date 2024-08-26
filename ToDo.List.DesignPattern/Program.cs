@@ -1,6 +1,9 @@
+using System.Text;
 using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using ToDo.List.DesignPattern.Core.Contexts;
 using ToDo.List.DesignPattern.Core.MapperProfiles;
 using ToDo.List.DesignPattern.Core.Models;
@@ -25,7 +28,7 @@ builder.Services.Configure<MongoDbSettings>(
 builder.Services.AddSingleton<TodoMongoDbContext>();
 
 builder.Services.AddTransient<IEFRepository<TodoItem>, TodoItemEFRepository>();
-builder.Services.AddTransient<IEFRepository<User>, UserEFRepository>();
+builder.Services.AddTransient<IEFUserRepository, UserEFRepository>();
 builder.Services.AddTransient<INoSqlRepository<TodoItem>, TodoItemNoSqlRepository>();
 
 builder.Services.AddAutoMapper(typeof(TodoItemMapperProfile));
@@ -35,7 +38,23 @@ builder.Services.AddValidatorsFromAssembly(typeof(CreateTodoItemValidator).Assem
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
 builder.Services.AddAuthorization();
-builder.Services.AddAuthentication("Bearer").AddJwtBearer();
+builder.Services.AddAuthentication(x =>
+    {
+        x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    }).AddJwtBearer(x =>
+    {
+        x.RequireHttpsMetadata = false;
+        x.SaveToken = true;
+        x.TokenValidationParameters = new TokenValidationParameters
+        {
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration["PrivateKey"])),
+            ValidateIssuer = false,
+            ValidateAudience = false
+        };
+    });
+
+builder.Services.AddAuthorization();
 builder.Services.AddControllers();
 
 var app = builder.Build();
@@ -46,6 +65,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseAuthentication();
 app.UseAuthorization();
 app.UseHttpsRedirection();
 app.MapControllers();

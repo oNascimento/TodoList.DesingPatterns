@@ -19,8 +19,7 @@ public class Authentication(IMediator _mediator) : ControllerBase
         }
         catch (ValidationException ex)
         {
-            return BadRequest(ex);
+            return BadRequest(ex.Errors);
         }
-
     }
 }

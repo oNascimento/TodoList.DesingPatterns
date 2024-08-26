@@ -5,7 +5,7 @@ using ToDo.List.DesignPattern.Infrastructure.Interfaces;
 
 namespace ToDo.List.DesignPattern.Core.Repositories;
 
-public class UserEFRepository(ILogger<TodoItemEFRepository> logger, TodoContext context) : IEFRepository<User>
+public class UserEFRepository(ILogger<TodoItemEFRepository> logger, TodoContext context) : IEFUserRepository
 {
     private async Task SaveChangesAsync(Action action, string operationName)
     {
@@ -49,5 +49,10 @@ public class UserEFRepository(ILogger<TodoItemEFRepository> logger, TodoContext 
             context.Entry(item).State = EntityState.Modified;
             context.Update(item);
         }, nameof(Update));
+    }
+
+    public async Task<bool> IsValidUserPassword(string user, string password)
+    {
+        return await context.Users.AnyAsync(u => u.Password == password && u.UserName == user);
     }
 }
