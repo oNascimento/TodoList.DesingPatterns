@@ -25,6 +25,7 @@ builder.Services.Configure<MongoDbSettings>(
 builder.Services.AddSingleton<TodoMongoDbContext>();
 
 builder.Services.AddTransient<IEFRepository<TodoItem>, TodoItemEFRepository>();
+builder.Services.AddTransient<IEFRepository<User>, UserEFRepository>();
 builder.Services.AddTransient<INoSqlRepository<TodoItem>, TodoItemNoSqlRepository>();
 
 builder.Services.AddAutoMapper(typeof(TodoItemMapperProfile));
@@ -33,6 +34,8 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(Pro
 builder.Services.AddValidatorsFromAssembly(typeof(CreateTodoItemValidator).Assembly);
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
+builder.Services.AddAuthorization();
+builder.Services.AddAuthentication("Bearer").AddJwtBearer();
 builder.Services.AddControllers();
 
 var app = builder.Build();
@@ -43,6 +46,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseAuthorization();
 app.UseHttpsRedirection();
 app.MapControllers();
 app.Run();

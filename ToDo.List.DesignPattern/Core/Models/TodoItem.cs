@@ -7,6 +7,7 @@ public class TodoItem
 {
     
     public long Id { get; set; }
+    public long? IdUser { get; set; }
     
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
@@ -25,4 +26,6 @@ public class TodoItem
     public bool IsDeleted { get; set; }
     [BsonElement("DueDate")]
     public DateTime DueDate { get; set; }
+    
+    public virtual User? User { get; set; }
 }
